@@ -29,21 +29,22 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import domain.TaskAction
 import domain.ToDoTask
 
-const val DEFAULT_TITLE = "Enter the title"
+const val DEFAULT_TITLE = "Enter the Title"
 const val DEFAULT_DESCRIPTION = "Add some description"
 
-class TaskScreen(val task: ToDoTask? = null) : Screen {
+data class TaskScreen(val task: ToDoTask? = null) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<TaskViewModel>()
-        var currentTitle by remember { mutableStateOf(task?.title ?: DEFAULT_TITLE) }
-        var currentDescription by remember {
-            mutableStateOf(
-                task?.description ?: DEFAULT_DESCRIPTION
-            )
+        var currentTitle by remember {
+            mutableStateOf(task?.title ?: DEFAULT_TITLE)
         }
+        var currentDescription by remember {
+            mutableStateOf(task?.description ?: DEFAULT_DESCRIPTION)
+        }
+
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -56,7 +57,6 @@ class TaskScreen(val task: ToDoTask? = null) : Screen {
                             singleLine = true,
                             value = currentTitle,
                             onValueChange = { currentTitle = it }
-
                         )
                     },
                     navigationIcon = {
@@ -75,22 +75,22 @@ class TaskScreen(val task: ToDoTask? = null) : Screen {
                         onClick = {
                             if (task != null) {
                                 viewModel.setAction(
-                                    TaskAction.Update(
+                                    action = TaskAction.Update(
                                         ToDoTask().apply {
                                             _id = task._id
                                             title = currentTitle
                                             description = currentDescription
-
-                                        })
+                                        }
+                                    )
                                 )
                             } else {
                                 viewModel.setAction(
-                                    TaskAction.Add(
+                                    action = TaskAction.Add(
                                         ToDoTask().apply {
                                             title = currentTitle
                                             description = currentDescription
-
-                                        })
+                                        }
+                                    )
                                 )
                             }
                             navigator.pop()
@@ -99,23 +99,23 @@ class TaskScreen(val task: ToDoTask? = null) : Screen {
                     ) {
                         Icon(
                             imageVector = Icons.Default.Check,
-                            contentDescription = "Edit Icon"
+                            contentDescription = "Checkmark Icon"
                         )
                     }
                 }
             }
-        ) { paddingValues ->
-
+        ) { padding ->
             BasicTextField(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .padding(all = 24.dp)
                     .padding(
-                        top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding()
+                        top = padding.calculateTopPadding(),
+                        bottom = padding.calculateBottomPadding()
                     ),
                 textStyle = TextStyle(
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    color = MaterialTheme.colorScheme.onSurface
                 ),
                 value = currentDescription,
                 onValueChange = { description -> currentDescription = description }
