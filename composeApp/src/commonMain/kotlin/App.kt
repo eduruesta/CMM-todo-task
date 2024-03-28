@@ -164,6 +164,7 @@ fun AppTheme(
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
+    initializeKoin()
     AppTheme(useDarkTheme = isSystemInDarkTheme()) {
         Navigator(HomeScreen()) {
             SlideTransition(it)
