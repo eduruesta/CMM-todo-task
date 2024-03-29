@@ -7,12 +7,17 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,6 +49,8 @@ data class TaskScreen(val task: ToDoTask? = null) : Screen {
         var currentDescription by remember {
             mutableStateOf(task?.description ?: DEFAULT_DESCRIPTION)
         }
+        var showDialog by remember { mutableStateOf(false) }
+
 
         Scaffold(
             topBar = {
@@ -73,27 +80,31 @@ data class TaskScreen(val task: ToDoTask? = null) : Screen {
                 if (currentTitle.isNotEmpty() && currentDescription.isNotEmpty()) {
                     FloatingActionButton(
                         onClick = {
-                            if (task != null) {
-                                viewModel.setAction(
-                                    action = TaskAction.Update(
-                                        ToDoTask().apply {
-                                            _id = task._id
-                                            title = currentTitle
-                                            description = currentDescription
-                                        }
+                            if (currentTitle != DEFAULT_TITLE) {
+                                if (task != null) {
+                                    viewModel.setAction(
+                                        action = TaskAction.Update(
+                                            ToDoTask().apply {
+                                                _id = task._id
+                                                title = currentTitle
+                                                description = currentDescription
+                                            }
+                                        )
                                     )
-                                )
+                                } else {
+                                    viewModel.setAction(
+                                        action = TaskAction.Add(
+                                            ToDoTask().apply {
+                                                title = currentTitle
+                                                description = currentDescription
+                                            }
+                                        )
+                                    )
+                                }
+                                navigator.pop()
                             } else {
-                                viewModel.setAction(
-                                    action = TaskAction.Add(
-                                        ToDoTask().apply {
-                                            title = currentTitle
-                                            description = currentDescription
-                                        }
-                                    )
-                                )
+                                showDialog = true
                             }
-                            navigator.pop()
                         },
                         shape = RoundedCornerShape(size = 12.dp)
                     ) {
@@ -105,21 +116,34 @@ data class TaskScreen(val task: ToDoTask? = null) : Screen {
                 }
             }
         ) { padding ->
-            BasicTextField(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(all = 24.dp)
-                    .padding(
-                        top = padding.calculateTopPadding(),
-                        bottom = padding.calculateBottomPadding()
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDialog = false },
+                    title = { Text("Title cannot be empty") },
+                    text = { Text("Please enter a title") },
+                    confirmButton = {
+                        Button(onClick = { showDialog = false }) {
+                            Text("OK")
+                        }
+                    }
+                )
+            } else {
+                BasicTextField(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(all = 24.dp)
+                        .padding(
+                            top = padding.calculateTopPadding(),
+                            bottom = padding.calculateBottomPadding()
+                        ),
+                    textStyle = TextStyle(
+                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                        color = MaterialTheme.colorScheme.onSurface
                     ),
-                textStyle = TextStyle(
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    color = MaterialTheme.colorScheme.onSurface
-                ),
-                value = currentDescription,
-                onValueChange = { description -> currentDescription = description }
-            )
+                    value = currentDescription,
+                    onValueChange = { description -> currentDescription = description }
+                )
+            }
         }
     }
 }
