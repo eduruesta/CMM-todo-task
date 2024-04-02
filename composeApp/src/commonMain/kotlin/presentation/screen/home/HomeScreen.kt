@@ -106,7 +106,7 @@ class HomeScreen : Screen {
                             completed
                         )
                     )},
-                    onDelete = { task -> viewModel.setAction(action = TaskAction.Delete(task)) })
+                    onDelete = { task -> viewModel.setAction(action = TaskAction.Delete(task))})
             }
 
         }

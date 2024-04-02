@@ -1,7 +1,6 @@
 package data
 
 import domain.RequestState
-import domain.TaskAction
 import domain.ToDoTask
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration

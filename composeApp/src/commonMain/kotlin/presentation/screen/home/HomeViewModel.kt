@@ -1,7 +1,6 @@
 package presentation.screen.home
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -44,19 +43,19 @@ class HomeViewModel(private val mongoDB: MongoDB) : ScreenModel {
         }
     }
 
-    fun setCompleted(task: ToDoTask, completed: Boolean) {
+    private fun setCompleted(task: ToDoTask, completed: Boolean) {
         screenModelScope.launch(Dispatchers.IO) {
             mongoDB.setCompleted(task, completed)
         }
     }
 
-    fun setFavorite(task: ToDoTask, isFavorite: Boolean) {
+    private fun setFavorite(task: ToDoTask, isFavorite: Boolean) {
         screenModelScope.launch(Dispatchers.IO) {
             mongoDB.setFavorite(task, isFavorite)
         }
     }
 
-    fun setDelete(task: ToDoTask) {
+    private fun setDelete(task: ToDoTask) {
         screenModelScope.launch(Dispatchers.IO) {
             mongoDB.deleteTask(task)
         }
