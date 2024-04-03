@@ -32,6 +32,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.gitlive.firebase.auth.FirebaseUser
 import domain.RequestState
 import domain.TaskAction
 import domain.ToDoTask
@@ -40,7 +41,7 @@ import presentation.screen.components.LoadingScreen
 import presentation.screen.components.TaskView
 import presentation.screen.task.TaskScreen
 
-class HomeScreen : Screen {
+class HomeScreen(private val fireBaseUser: FirebaseUser?) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -50,7 +51,7 @@ class HomeScreen : Screen {
         val completedTask by viewModel.completedTask
         Scaffold(
             topBar = {
-                CenterAlignedTopAppBar(title = { Text("Home") })
+                CenterAlignedTopAppBar(title = { Text(fireBaseUser?.email ?: "Home") })
             },
             floatingActionButton = {
                 FloatingActionButton(

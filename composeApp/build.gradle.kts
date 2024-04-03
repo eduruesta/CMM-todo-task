@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.realm.plugin)
+    alias(libs.plugins.googleServices)
 }
 
 kotlin {
@@ -47,6 +48,7 @@ kotlin {
             implementation(libs.mongodb.realm)
             implementation(libs.kotlin.coroutines)
             implementation(libs.stately.common)
+            implementation(libs.firebase.auth)
         }
     }
 }
