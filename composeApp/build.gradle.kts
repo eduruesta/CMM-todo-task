@@ -44,11 +44,18 @@ kotlin {
             implementation(libs.navigator.transitions)
             implementation(libs.navigator.koin)
             implementation(libs.koin.core)
+            api(libs.image.loader)
 
             implementation(libs.mongodb.realm)
             implementation(libs.kotlin.coroutines)
             implementation(libs.stately.common)
-            implementation(libs.firebase.auth)
+            implementation("io.github.mirzemehdi:kmpauth-google:1.2.0") //Google One Tap Sign-In
+            implementation("io.github.mirzemehdi:kmpauth-firebase:1.2.0") //Integrated Authentications with Firebase
+            implementation("io.github.mirzemehdi:kmpauth-uihelper:1.2.0") //UiHelper SignIn buttons (AppleSignIn, GoogleSignInButton)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
