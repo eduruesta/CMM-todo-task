@@ -15,6 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
+import presentation.screen.login.GoogleLogIn
 import presentation.screen.login.LogInScreen
 
 class SplashScreen : Screen {
@@ -36,7 +37,7 @@ class SplashScreen : Screen {
 
         scope.launch {
             delay(3000)
-            navigator.push(LogInScreen())
+            navigator.push(GoogleLogIn())
         }
     }
 }

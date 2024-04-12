@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>369188861177-9a9ju1i9e9jb3r2ptra08if69rsh0erh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.369188861177-9a9ju1i9e9jb3r2ptra08if69rsh0erh</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>369188861177-n20rpqotts0qb4530s8tdkmil758ojv0.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAFJPtAkPV4yYoQRp4GU2JVCUgcQjN_PJM</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,15 +21,15 @@
 	<key>STORAGE_BUCKET</key>
 	<string>todokmm-419113.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:369188861177:ios:8db664bdb99ecbe3f19e28</string>
 </dict>

@@ -1,12 +1,16 @@
 package presentation.screen.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -25,14 +29,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.gitlive.firebase.auth.FirebaseUser
+import com.seiko.imageloader.rememberImagePainter
 import domain.RequestState
 import domain.TaskAction
 import domain.ToDoTask
@@ -41,7 +48,7 @@ import presentation.screen.components.LoadingScreen
 import presentation.screen.components.TaskView
 import presentation.screen.task.TaskScreen
 
-class HomeScreen(private val fireBaseUser: FirebaseUser?) : Screen {
+class HomeScreen(private val fireBaseUser: String?, private val photoURL: String?) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -51,7 +58,7 @@ class HomeScreen(private val fireBaseUser: FirebaseUser?) : Screen {
         val completedTask by viewModel.completedTask
         Scaffold(
             topBar = {
-                CenterAlignedTopAppBar(title = { Text(fireBaseUser?.email ?: "Home") })
+                CenterAlignedTopAppBar(title = { Text(fireBaseUser ?: "Home") })
             },
             floatingActionButton = {
                 FloatingActionButton(
@@ -74,6 +81,19 @@ class HomeScreen(private val fireBaseUser: FirebaseUser?) : Screen {
                         bottom = padding.calculateBottomPadding()
                     )
             ) {
+                val painter = rememberImagePainter(url = photoURL.toString())
+                Image(
+                    painter = painter,
+                    contentDescription = "Profile picture",
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clip(CircleShape)
+                        .align(Alignment.CenterHorizontally)
+                    .fillMaxWidth(),
+                    alignment = Alignment.CenterEnd,
+                    contentScale = ContentScale.Crop
+                )
+                Spacer(modifier = Modifier.height(24.dp))
 
                 DisplayTask(
                     modifier = Modifier.weight(1f),

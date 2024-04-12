@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "369188861177",
+    "project_id": "todokmm-419113",
+    "storage_bucket": "todokmm-419113.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369188861177:android:3f386e043b3b7a9bf19e28",
+        "android_client_info": {
+          "package_name": "io.bebi.todokmm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369188861177-n20rpqotts0qb4530s8tdkmil758ojv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.bebi.todokmm",
+            "certificate_hash": "8a2f62d2442a2ed966677faafec6c160483c2bfe"
+          }
+        },
+        {
+          "client_id": "369188861177-rd5jls7p1b2rr5tjk0nna8fdt8cjd34i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD366va6IboxdfSOFt8FK2OrlWbBy1Y0sc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369188861177-rd5jls7p1b2rr5tjk0nna8fdt8cjd34i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "369188861177-9a9ju1i9e9jb3r2ptra08if69rsh0erh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.bebi.todokmm.ToDoKMM"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
