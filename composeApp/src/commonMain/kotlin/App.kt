@@ -10,9 +10,8 @@ import data.MongoDB
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
-import presentation.screen.home.HomeScreen
+import presentation.screen.customer.CustomerViewModel
 import presentation.screen.home.HomeViewModel
-import presentation.screen.login.LogInScreen
 import presentation.screen.splash.SplashScreen
 import presentation.screen.task.TaskViewModel
 
@@ -179,6 +178,7 @@ val mongoModule = module {
     single { MongoDB() }
     factory { TaskViewModel(get()) }
     factory { HomeViewModel(get()) }
+    factory { CustomerViewModel() }
 }
 
 fun initializeKoin() {

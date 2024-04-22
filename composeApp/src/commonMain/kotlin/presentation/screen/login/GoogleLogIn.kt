@@ -41,13 +41,13 @@ import dev.gitlive.firebase.auth.auth
 import presentation.screen.home.HomeScreen
 
 class GoogleLogIn : Screen {
-    private val auth: FirebaseAuth by lazy { Firebase.auth }
 
     @Composable
     override fun Content() {
+        val auth: FirebaseAuth by lazy { Firebase.auth }
         val navigator = LocalNavigator.currentOrThrow
-        val isUserLoggedIn = auth.currentUser != null
-        if (isUserLoggedIn) {
+        navigator.push(HomeScreen(auth.currentUser?.displayName, auth.currentUser?.photoURL))
+/*        if (auth.currentUser != null) {
             navigator.push(HomeScreen(auth.currentUser?.displayName, auth.currentUser?.photoURL))
         } else {
             MaterialTheme {
@@ -111,6 +111,8 @@ class GoogleLogIn : Screen {
                 }
             }
         }
+      */
+ */
     }
 
     @Composable

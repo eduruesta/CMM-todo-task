@@ -46,9 +46,10 @@ import domain.ToDoTask
 import presentation.screen.components.ErrorScreen
 import presentation.screen.components.LoadingScreen
 import presentation.screen.components.TaskView
+import presentation.screen.customer.CustomersScreen
 import presentation.screen.task.TaskScreen
 
-class HomeScreen(private val fireBaseUser: String?, private val photoURL: String?) : Screen {
+class HomeScreen(val displayName: String?, val photoURL: String?) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -58,7 +59,7 @@ class HomeScreen(private val fireBaseUser: String?, private val photoURL: String
         val completedTask by viewModel.completedTask
         Scaffold(
             topBar = {
-                CenterAlignedTopAppBar(title = { Text(fireBaseUser ?: "Home") })
+                CenterAlignedTopAppBar(title = { Text(displayName ?: "Home") })
             },
             floatingActionButton = {
                 FloatingActionButton(
@@ -94,6 +95,15 @@ class HomeScreen(private val fireBaseUser: String?, private val photoURL: String
                     contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.height(24.dp))
+
+                Button(modifier = Modifier
+                    .size(150.dp)
+                    .clip(CircleShape)
+                    .align(Alignment.CenterHorizontally)
+                    .fillMaxWidth(),
+                    onClick = { navigator.push(CustomersScreen()) }) {
+                    Text(text = "Customers", fontWeight = FontWeight.Bold)
+                }
 
                 DisplayTask(
                     modifier = Modifier.weight(1f),
